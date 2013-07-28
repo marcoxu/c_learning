@@ -1,0 +1,9 @@
+// compile instructions
+gcc -shared -fPIC -o lib/libpopsort.so pop.c
+gcc -shared -fPIC -o lib/libmergesort.so merge.c
+gcc -o bin/tpop pop_main.c /home/my_program/sorting/lib/libpopsort.so
+gcc -o bin/tmerge merge_main.c /home/my_program/sorting/lib/libmergesort.so
+
+// or with below instruction
+export LD_LIBRARY_PATH=/home/my_program/sorting/lib:$LD_LIBRARY_PATH
+gcc -o bin/tmerge merge_main.c -L./lib -lmergesort
