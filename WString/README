@@ -1,2 +1,5 @@
 Compile .so: g++ WString.cpp -shared -fPIC -o libWString.so
 Compile .o:  g++ -c WString.cpp
+Compile main: g++ -o main WString_main.cpp -L. -lWString
+export LD_LIBRARY_PATH=/home/my_program/WString:$LD_LIBRARY_PATH
+

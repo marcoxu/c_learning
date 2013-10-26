@@ -69,6 +69,7 @@ void WString::wstring_dealloc()
 
 WString::WString(const char *str)
 {
+    LOGE("Constructor: WString::WString(const char *str)\n");
     msize = 0;
     m_data = NULL;
     if(str==NULL){
@@ -84,6 +85,7 @@ WString::WString(const char *str)
 
 WString::WString()
 {
+    LOGE("Constructor: WString::WString()\n");
     msize = 0;
     m_data = NULL;
     wstring_alloc(1); 
@@ -92,11 +94,13 @@ WString::WString()
 
 WString::~WString(void)
 {
+    LOGE("Destructor: WString::~WString(void)\n");
     wstring_dealloc();
 }
 
 WString::WString(const WString &other) 
 {
+    LOGE("Copy Constructor: WString::WString(const WString &other) \n");
     msize = 0;
     m_data = NULL;
     int length = strlen(other.m_data);
@@ -107,6 +111,7 @@ WString::WString(const WString &other)
 
 WString& WString::operator =(const WString &other)
 {
+    LOGE("Operator =: WString& WString::operator =(const WString &other)\n");
     if(this == &other)
         return *this;
     wstring_dealloc();
@@ -120,6 +125,7 @@ WString& WString::operator =(const WString &other)
 
 WString& WString::operator =(const char* other)
 {
+    LOGE("Operator =: WString& WString::operator =(const char* other)\n");
     if(other == NULL){
         wstring_dealloc();
         wstring_alloc(1);
@@ -160,6 +166,7 @@ WString WString::operator +(const WString & other)
     WString s;
     int lenA = strlen(m_data);
     int lenB = strlen(other.m_data);
+    LOGE("Operator +: WString WString::operator +(const WString & other)\n");
     s.wstring_dealloc();
     s.wstring_alloc(lenA+lenB+1);
     strncpy(s.m_data, m_data, lenA+1);
