@@ -1,0 +1,2 @@
+Compile .so: g++ WString.cpp -shared -fPIC -o libWString.so
+Compile .o:  g++ -c WString.cpp
