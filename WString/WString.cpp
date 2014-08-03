@@ -1,5 +1,4 @@
 /*++
-//  Copyright (c) 2011 Shanda Networking Ltd. 
 //  Module Name:
 //    WString.cpp
 
@@ -8,7 +7,7 @@
 //    which supports operations on string.
 //
 //  Author:
-//    Xu, Feng (xufeng03@snda.com) 29-Nov-2011
+//    Xu, Feng s 29-Nov-2011
 //
 //  Revision History:
 //    creation      Xu, Feng    29-Nov-2011
