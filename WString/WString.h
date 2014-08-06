@@ -1,5 +1,4 @@
 /*++
-//  Copyright (c) 2011 Shanda Networking Ltd. 
 //  Module Name:
 //    WString.h
 
@@ -7,7 +6,7 @@
 //    This file contains the implementation of the WString class
 //
 //  Author:
-//    Xu, Feng (xufeng03@snda.com) 29-Nov-2011
+//    Xu, Feng 29-Nov-2011
 //
 //  Revision History:
 //    creation      Xu, Feng    29-Nov-2011
