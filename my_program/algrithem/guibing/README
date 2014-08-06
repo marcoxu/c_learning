@@ -1,0 +1,5 @@
+gcc -o main quickSort.c
+gcc -o main mergeArray.c -L. libquickSort.so
+Compile .so: gcc quickSort.c -shared -fPIC -o libquickSort.so
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/f12xu/github/c_learning/my_program/algrithem/guibing
