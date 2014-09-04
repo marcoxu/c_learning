@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+unsigned int findBit1Count(int value) {
+  unsigned int count = 0;
+  int getReversed = 0;
+
+  if(value == 0) {
+    return 0;
+  } else if (value < 0) {
+    value = ~value;
+    getReversed = 1;
+  }
+
+  while(value>0) {
+    if(value & 1) {
+      count ++;
+    }
+    value = value >> 1;
+  }
+
+  if(getReversed) {
+    count = sizeof(int)*8-count;
+  }
+  return count;
+}
+
+int main() {
+  printf("%04d: %u\n", 5, findBit1Count(5));
+  printf("%04d: %u\n", 50, findBit1Count(50));
+  printf("%04d: %u\n", 100, findBit1Count(100));
+  printf("%04d: %u\n", -5, findBit1Count(-5));
+}

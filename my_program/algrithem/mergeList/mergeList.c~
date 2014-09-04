@@ -168,7 +168,6 @@ void main() {
   printf("==========================================\n");
   printf("Merge Array: ");
 
-  // initialize the test data
   int* dstData = (int*)malloc((length1+length2)*sizeof(int));
   for(k=0;k<length1;k++){
   	dstData[k] = sortData1[k];

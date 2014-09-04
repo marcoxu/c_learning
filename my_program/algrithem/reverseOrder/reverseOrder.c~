@@ -49,7 +49,7 @@ node* printReverseListImpl1(node* dstData) {
     
     current->next = prev;
     
-    printf("\nAfter Merge:\n");
+    printf("After Merge:\n");
     for(prev=current;prev!=NULL;prev=prev->next) {
       printf(" %d, ", *(prev->value));
     }

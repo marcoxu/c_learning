@@ -1,0 +1,146 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define swap(data, from, to) do {int temp = data[from]; data[from]=data[to]; data[to]=temp;} while(0)
+#define abs(value) ((value)<0?(-(value)):(value))
+
+int isGreaterAbs(int from, int to);
+int isLesserAbs(int from, int to);
+int isGreaterCompose(int from, int to);
+int isLesserCompose(int from, int to);
+
+typedef struct {
+  int (*isGreater) (int from, int to);
+  int (*isLesser) (int from, int to);
+} sort_ops;
+
+static sort_ops sort_by_abs_value_ops = {
+   isGreaterAbs, isLesserAbs
+};
+
+static sort_ops sort_by_min_ops = {
+   isGreaterCompose, isLesserCompose
+};
+
+static sort_ops* used_ops = &sort_by_min_ops;
+
+int foundWeiShu(int value) {
+   int divide = 10;
+   int count = 1;
+   int divideValue = abs(value);
+
+   while((divideValue=divideValue/divide) > 0) {
+      count ++;
+   }
+   return count;
+}
+
+int isGreaterAbs(int from, int to) {
+  return abs(from) > abs(to);
+}
+
+int isLesserAbs(int from, int to) {
+  return abs(from) < abs(to);
+}
+
+int isGreaterCompose(int from, int to) {
+  int fromWei = foundWeiShu(from);
+  int toWei = foundWeiShu(to);
+  int multi = 1;
+  int i;
+  for(i=0;i<abs(fromWei-toWei);i++) {
+     multi *= 10;
+  }
+
+  if(fromWei>toWei) {
+     to *= multi;
+  } else {
+     from *= multi;
+  }
+
+  return abs(from) > abs(to);
+}
+
+int isLesserCompose(int from, int to) {
+  int fromWei = foundWeiShu(from);
+  int toWei = foundWeiShu(to);
+  int multi = 1;
+  int i;
+  for(i=0;i<abs(fromWei-toWei);i++) {
+     multi *= 10;
+  }
+
+  if(fromWei>toWei) {
+     to *= multi;
+  } else {
+     from *= multi;
+  }
+
+  return abs(from) < abs(to);
+}
+
+void quickSort(int* srcData, unsigned int size) {
+  if(srcData == NULL || size == 0) {
+    return;
+  }
+  
+  int front = 0;
+  int end = size -1;
+  int cur = 0;
+  int checkEnd = 1;
+
+  while(front <= end) {
+    if(checkEnd) {
+      if(used_ops->isLesser(srcData[end], srcData[cur])) {
+        checkEnd = 0;
+        swap(srcData, end, cur);
+        cur = end;
+      } else {
+        end --;
+      }
+    } else {
+      if(used_ops->isGreater(srcData[front], srcData[cur])) {
+        checkEnd = 1;
+        swap(srcData, front, cur);
+        cur = front;
+      } else {
+        front ++;
+      }
+    }
+  }
+
+  quickSort(srcData, cur);
+  quickSort(srcData+cur+1, size - cur - 1);
+}
+
+void buildMinimum(int* srcData, unsigned int size) {
+  if(srcData == NULL || size == 0) {
+    return;
+  }
+  
+  int i = 0;
+  for(i=0;i<size;i++) {
+    printf("%d, ", srcData[i]);
+  }
+  printf("\n");
+
+  quickSort(srcData, size);
+
+  for(i=0;i<size;i++) {
+    printf("%d, ", srcData[i]);
+  }
+  printf("\nminimum number: ");
+
+  for(i=0;i<size;i++) {
+    printf("%d", abs(srcData[i]));
+  }
+  printf("\n");
+}
+
+int main() {
+  int srcData[] = {29, 1, 39, 22, 593, -28, 37, -48, -36, 1288};
+  unsigned int size = sizeof(srcData)/sizeof(int);
+  buildMinimum(srcData, size);
+}
+
+

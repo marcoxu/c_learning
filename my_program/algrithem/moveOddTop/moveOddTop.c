@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void moveOddToTop(int* array, int size) {
+   if(array == NULL) {
+      return;
+   }
+   if(size <= 1) {
+      return;
+   }
+  
+   int posOdd = -1;
+   int posEve = -1;
+
+   while(posOdd < size && posEve < size) {
+      int pos = posOdd < posEve ? posOdd : posEve;
+      int OddFound = 0;
+      int EveFound = 0;
+   
+      if(pos < 0) 
+         pos = 0;
+
+      for(;pos < size; pos ++) {
+         if(!OddFound && array[pos]%2) {
+            if(pos >= posOdd) {
+               posOdd = pos;
+               OddFound = 1;
+            }
+         }
+
+         if(!EveFound && !(array[pos]%2)) {
+            if(pos >= posEve) {
+               posEve = pos;
+               EveFound = 1;
+            }
+         }
+
+         if(OddFound && EveFound)
+            break;
+      }
+
+      // reach the end
+      if(!OddFound || !EveFound)
+         break;
+
+      // switch odd and even
+      if(posOdd < size && posEve < size) {
+         int tmp = array[posOdd];
+         array[posOdd] = array[posEve];
+         array[posEve] = tmp;
+      }
+
+      posOdd ++;
+      posEve ++;
+   }
+}
+
+int main() {
+   int data[] = {1, 2, 3, 4, 5 , 6, 7, 8, 9, 10};
+   int size = sizeof(data)/sizeof(int);
+
+   int i = 0;
+   for(i=0;i<size;i++) {
+      printf("%d, ", data[i]);
+   }
+   
+   printf("\n");
+
+   moveOddToTop(data, size);
+
+   for(i=0;i<size;i++) {
+      printf("%d, ", data[i]);
+   }
+   
+   printf("\n");
+
+}
+
+
+
+
