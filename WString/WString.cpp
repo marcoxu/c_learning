@@ -17,13 +17,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <vos/util.h>
-//#include <vos/log.h>
 #include <ctype.h>
 #include "WString.h"
 
 #define LOG_TAG "WString"
 #define LOGE printf
+#define LOGD printf
 int WString::memoryCount = 0;
 
 #ifdef __cplusplus
@@ -68,7 +67,7 @@ void WString::wstring_dealloc()
 
 WString::WString(const char *str)
 {
-    LOGE("Constructor: WString::WString(const char *str)\n");
+    LOGD("Constructor: WString::WString(const char *str)\n");
     msize = 0;
     m_data = NULL;
     if(str==NULL){
@@ -84,7 +83,7 @@ WString::WString(const char *str)
 
 WString::WString()
 {
-    LOGE("Constructor: WString::WString()\n");
+    LOGD("Constructor: WString::WString()\n");
     msize = 0;
     m_data = NULL;
     wstring_alloc(1); 
@@ -93,13 +92,13 @@ WString::WString()
 
 WString::~WString(void)
 {
-    LOGE("Destructor: WString::~WString(void)\n");
+    LOGD("Destructor: WString::~WString(void)\n");
     wstring_dealloc();
 }
 
 WString::WString(const WString &other) 
 {
-    LOGE("Copy Constructor: WString::WString(const WString &other) \n");
+    LOGD("Copy Constructor: WString::WString(const WString &other) \n");
     msize = 0;
     m_data = NULL;
     int length = strlen(other.m_data);
@@ -110,7 +109,7 @@ WString::WString(const WString &other)
 
 WString& WString::operator =(const WString &other)
 {
-    LOGE("Operator =: WString& WString::operator =(const WString &other)\n");
+    LOGD("Operator =: WString& WString::operator =(const WString &other)\n");
     if(this == &other)
         return *this;
     wstring_dealloc();
@@ -165,7 +164,7 @@ WString WString::operator +(const WString & other)
     WString s;
     int lenA = strlen(m_data);
     int lenB = strlen(other.m_data);
-    LOGE("Operator +: WString WString::operator +(const WString & other)\n");
+    LOGD("Operator +: WString WString::operator +(const WString & other)\n");
     s.wstring_dealloc();
     s.wstring_alloc(lenA+lenB+1);
     strncpy(s.m_data, m_data, lenA+1);
