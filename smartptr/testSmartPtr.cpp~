@@ -1,0 +1,11 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include "smartptr.h"
+
+int main() {
+  printf("start\n");
+  smart_ptr<int> p1;
+  
+  printf("done\n");
+
+}
