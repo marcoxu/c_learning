@@ -1,0 +1,5 @@
+g++ smartptr.cpp -fPIC -shared -o libsmartptr.so
+export LD_LIBRARY_PATH=~/github/c_learning/smartptr:$LD_LIBRARY_PATH
+g++ -o main testSmartPtr.cpp -lsmartptr -L. 
+
+
