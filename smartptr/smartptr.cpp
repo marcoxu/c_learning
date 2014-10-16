@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "smartptr.h"
 
 template<typename T>
@@ -88,4 +89,26 @@ smart_ptr<T>& smart_ptr<T>::operator = (const smart_ptr<T>& other) {
   return *this;
 }
 
+class testClass {
+public:
+  int a;
+  char b;
+  long c;
+  void doTest() {printf("testClass.doTest()\n");};
+  ~testClass() {printf("delete testClass with a = %d\n", a);};
+};
 
+int main() {
+  smart_ptr<int> p1;
+  testClass* test1 = new testClass();
+  test1->a = 10;
+  smart_ptr<testClass> p2;
+  smart_ptr<testClass> p3(test1);
+  smart_ptr<testClass> p4 = p3;
+  smart_ptr<testClass> p5 = p3;
+
+  testClass* ptr = p3.getPtr();
+  if(ptr) {
+    ptr->doTest();
+  }
+}
