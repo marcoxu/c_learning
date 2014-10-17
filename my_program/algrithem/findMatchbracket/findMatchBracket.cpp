@@ -1,19 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* 
+ Find the longest sub string which contains brackets in pairs
+ */
 int findSubString(char* src, char** start) {
   if(src == NULL) {
     *start = NULL;
     return 0;
   }
 
-  char* curLongStart = NULL;
+  char* curMaxStart = NULL;
   char* tmpStart = NULL;
-  int curLongLength = 0;
+  int curMaxLength = 0;
   int tmpLength = 0;
   int curCount = -1;
   int curPos = 0;
 
+  /*
+   Loop over the string
+   For example:
+   (   )  )  )  (  (  (  (  (  (  (  )  (  )  )  )  )  )  )  )  )  )  )  (   )  (  (  (  (  (  (  )  )
+   1   0 -1 -1  1  2  3  4  5  6  7  6  7  6  5  4  3  2  1  0 -1 -1 -1  1   0  1  2  3  4  5  6  5  4
+   |-2-|        |----------------- 16 -----------------------|           |-2-|              |----4---|
+   
+   Max sub string length is 16.   
+  */
   while(src[curPos]) {
     if(curCount == -1) {
       if(src[curPos] == '(') {
@@ -40,9 +52,9 @@ int findSubString(char* src, char** start) {
         }
         
         if(curCount <= 0) {
-          if(tmpLength > curLongLength) {
-            curLongLength = tmpLength;
-            curLongStart = tmpStart;
+          if(tmpLength > curMaxLength) {
+            curMaxLength = tmpLength;
+            curMaxStart = tmpStart;
           }
         }
       }
@@ -51,14 +63,24 @@ int findSubString(char* src, char** start) {
     curPos ++;
   }
 
-  *start = curLongStart;
-  return curLongLength;
+  if(curCount > 0) {
+    tmpStart = tmpStart + tmpLength + curCount;
+    tmpLength = src + curPos - tmpStart;
+    if(tmpLength > curMaxLength) {
+      curMaxLength = tmpLength;
+      curMaxStart = tmpStart;
+    }
+  }
+
+  *start = curMaxStart;
+  return curMaxLength;
 }
 
 int main() {
-  const char* srcString = "()))((((((()())))))))))()";
+  const char* srcString = "()))((((((()())))))))))()(((((())";
   const char* srcStringa = "()()()()()()()()()()()()";
   const char* srcStringb = "())())())())";
+  const char* srcStringc = "())(((((())";
   char* subStart = NULL;
 
   int length = findSubString((char*)srcString, &subStart);
